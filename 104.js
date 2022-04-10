@@ -10,26 +10,28 @@
  * @param {TreeNode} root
  * @return {number}
  */
- var maxDepth = function(root) {
-  var currDepth = 0;
-  var childDepth = 0;
-  var leftChildDepth = 0;
-  var rightChildDepth = 0;
+var maxDepth = function(root) {
   if (root === null) {
     return 0;
-  } else if (root !== undefined) {
-    currDepth++;
   }
-  if (root.left !== null) {
-    leftChildDepth = maxDepth(root.left);
+  if (root.left === null && root.right === null) {
+    return 1;
   }
-  if (root.right !== null) {
-    rightChildDepth = maxDepth(root.right);
+  else {
+    var leftChildDepth;
+    var rightChildDepth;
+    if (root.left !== null) {
+      leftChildDepth = maxDepth(root.left);
+    }
+    if (root.right !== null) {
+      rightChildDepth = maxDepth(root.right);
+    }
+    if (leftChildDepth > rightChildDepth) {
+      return leftChildDepth + 1;
+    } else if (rightChildDepth > leftChildDepth) {
+      return rightChildDepth + 1;
+    } else {
+      return leftChildDepth + 1;
+    }
   }
-  if (leftChildDepth > rightChildDepth) {
-    currDepth += leftChildDepth;
-  } else if (rightChildDepth > leftChildDepth) {
-    currDepth += rightChildDepth;
-  }
-  return currDepth;
 };
